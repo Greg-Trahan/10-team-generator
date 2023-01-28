@@ -38,7 +38,6 @@ async function newEngineer(engineerArray) {
     engineerGitHub,
     engineerRole
   );
-
   return engineerArray;
 }
 
@@ -67,7 +66,7 @@ async function newMember() {
   return memberType;
 }
 
-function buildHTML(arr, finalString) {
+function buildHTML(arr, ipString) {
   let key = Object.keys(arr[3]);
   let value = Object.values(arr[3]);
   let keyString = "";
@@ -105,7 +104,7 @@ function writeHTML(ipString) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Team Generator</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./dist/style.css" />
   </head>
   <body>
     <header>
