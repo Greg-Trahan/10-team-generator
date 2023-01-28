@@ -4,26 +4,23 @@ const fs = require("fs");
 const Employee = require("./Employee");
 
 class Manager extends Employee {
-  constructor(officeNumber) {
-    this.officeNumber = officeNumber;
-
+  constructor(name, id, email, officeNumber) {
     super(name, id, email);
+    this.officeNumber = officeNumber;
   }
 
   getOfficeNumber() {
-    return inquirer.prompt({
+    const response = inquirer.prompt({
       type: "input",
       message: "What is their office number?",
       name: "officeNumber",
     });
+    return response;
   }
 
   getRole() {
-    return "Manager";
+    return { Role: "Manager" };
   }
 }
 
 module.exports = Manager;
-// officeNumber
-
-// getRole() // Overridden to return 'Manager'

@@ -4,18 +4,18 @@ const fs = require("fs");
 const Employee = require("./Employee");
 
 class Intern extends Employee {
-  constructor(school) {
-    this.school = school;
-
+  constructor(name, id, email, school) {
     super(name, id, email);
+    this.school = school;
   }
 
   getSchool() {
-    return inquirer.prompt({
+    const response = inquirer.prompt({
       type: "input",
       message: "What is the name of thier school?",
       name: "school",
     });
+    return response;
   }
 
   getRole() {
@@ -24,9 +24,3 @@ class Intern extends Employee {
 }
 
 module.exports = Intern;
-
-// school
-
-// getSchool()
-
-// getRole() // Overridden to return 'Intern'

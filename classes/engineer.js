@@ -4,18 +4,18 @@ const fs = require("fs");
 const Employee = require("./Employee");
 
 class Engineer extends Employee {
-  constructor(gitHub) {
-    this.gitHub = gitHub;
-
+  constructor(name, id, email, gitHub) {
     super(name, id, email);
+    this.gitHub = gitHub;
   }
 
   getGitHub() {
-    return inquirer.prompt({
+    const response = inquirer.prompt({
       type: "input",
       message: "What is their GitHub username?",
       name: "gitHub",
     });
+    return response;
   }
 
   getRole() {
@@ -24,9 +24,3 @@ class Engineer extends Employee {
 }
 
 module.exports = Engineer;
-
-// github // GitHub username
-
-// getGithub()
-
-// getRole() // Overridden to return 'Engineer'
