@@ -1,10 +1,10 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
 const Manager = require("./classes/Manager");
 const Engineer = require("./classes/Engineer");
 const Intern = require("./classes/Intern");
-const display = $("#displayArea");
 let memberType = { role: "Intern" };
-let finalString = "";
+let ipString = "";
 
 async function manager() {
   const manager = new Manager();
@@ -67,7 +67,7 @@ async function newMember() {
   return memberType;
 }
 
-function buildHTML(arr) {
+function buildHTML(arr, finalString) {
   let key = Object.keys(arr[3]);
   let value = Object.values(arr[3]);
   let keyString = "";
@@ -79,9 +79,9 @@ function buildHTML(arr) {
     keyString = "School";
   }
 
-  finalString = `
+  const employeeString = `
 <div class="box">
-  <div class="header">
+  <div class="title">
     <p>Name: ${arr[0].name}</p>
     <p>Role: ${arr[4].Role}</p>
   </div>
@@ -91,23 +91,53 @@ function buildHTML(arr) {
     <p>${keyString}: ${value}</p>
   </div>
 </div>
+
 `;
-  display.append(finalString);
+  console.log(employeeString);
+  ipString = ipString.concat(employeeString);
+  console.log(ipString);
+  return ipString;
+}
+
+function writeHTML(ipString) {
+  const finalString = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Generator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <p>My Team</p>
+    </header>
+    <div id="displayArea">${ipString}</div>
+  </body>
+</html>
+  `;
+  fs.writeFile("index.html", finalString, (err) =>
+    err ? console.log(err) : console.log("Success!")
+  );
 }
 
 async function start() {
   managerArray = await manager();
-  buildHTML(managerArray);
+  ipString = buildHTML(managerArray, ipString);
   while (memberType.role === "Engineer" || memberType.role === "Intern") {
     memberType = await newMember();
     if (memberType.role === "Engineer") {
       engineerArray = [];
       engineerArray = await newEngineer(engineerArray);
+      ipString = buildHTML(engineerArray, ipString);
     } else if (memberType.role === "Intern") {
       internArray = [];
       internArray = await newIntern(internArray);
+      ipString = buildHTML(internArray, ipString);
     } else {
-      //
+      writeHTML(ipString);
     }
   }
 }
