@@ -80,22 +80,19 @@ function buildHTML(arr, finalString) {
   }
 
   const employeeString = `
-<div class="box">
-  <div class="title">
-    <p>Name: ${arr[0].name}</p>
-    <p>Role: ${arr[4].Role}</p>
-  </div>
-  <div class="details">
-    <p>ID: ${arr[1].id}</p>
-    <p>Email: ${arr[2].email}</p>
-    <p>${keyString}: ${value}</p>
-  </div>
-</div>
-
+      <div class="box">
+        <div class="title">
+          <p>Name: ${arr[0].name}</p>
+          <p>Role: ${arr[4].Role}</p>
+        </div>
+        <div class="details">
+          <p>ID: ${arr[1].id}</p>
+          <p>Email: ${arr[2].email}</p>
+          <p>${keyString}: ${value}</p>
+        </div>
+      </div>
 `;
-  console.log(employeeString);
   ipString = ipString.concat(employeeString);
-  console.log(ipString);
   return ipString;
 }
 

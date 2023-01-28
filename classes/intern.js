@@ -19,7 +19,7 @@ class Intern extends Employee {
   }
 
   getRole() {
-    return "Intern";
+    return { Role: "Intern" };
   }
 }
 
