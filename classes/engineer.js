@@ -5,14 +5,14 @@ const Employee = require("./Employee");
 
 class Engineer extends Employee {
   constructor(name, id, email, gitHub) {
-    super(name, id, email);
+    super(name, id, email, "Engineer");
     this.gitHub = gitHub;
   }
 
   getGitHub() {
     const response = inquirer.prompt({
       type: "input",
-      message: "What is their GitHub username?",
+      message: "What is Engineers GitHub username?",
       name: "gitHub",
     });
     return response;
