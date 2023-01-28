@@ -13,7 +13,7 @@ class Manager extends Employee {
     const response = inquirer.prompt({
       type: "input",
       message: "What is their office number?",
-      name: "officeNumber",
+      name: "office",
     });
     return response;
   }

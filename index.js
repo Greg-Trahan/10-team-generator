@@ -1,8 +1,8 @@
 const inquirer = require("inquirer");
-const fs = require("fs");
 const Manager = require("./classes/Manager");
 const Engineer = require("./classes/Engineer");
 const Intern = require("./classes/Intern");
+const display = $("#displayArea");
 let memberType = { role: "Intern" };
 let finalString = "";
 
@@ -24,9 +24,8 @@ async function manager() {
   return managerArray;
 }
 
-async function newEngineer() {
+async function newEngineer(engineerArray) {
   const engineer = new Engineer();
-  const engineerArray = [];
   engineerName = await engineer.getName();
   engineerId = await engineer.getId();
   engineerEmail = await engineer.getEmail();
@@ -39,12 +38,12 @@ async function newEngineer() {
     engineerGitHub,
     engineerRole
   );
+
   return engineerArray;
 }
 
-async function newIntern() {
+async function newIntern(internArray) {
   const intern = new Intern();
-  const internArray = [];
   internName = await intern.getName();
   internId = await intern.getId();
   internEmail = await intern.getEmail();
@@ -68,17 +67,45 @@ async function newMember() {
   return memberType;
 }
 
+function buildHTML(arr) {
+  let key = Object.keys(arr[3]);
+  let value = Object.values(arr[3]);
+  let keyString = "";
+  if (key[0] === "office") {
+    keyString = "Office Number";
+  } else if (key[0] === "gitHub") {
+    keyString = "GitHub Username";
+  } else {
+    keyString = "School";
+  }
+
+  finalString = `
+<div class="box">
+  <div class="header">
+    <p>Name: ${arr[0].name}</p>
+    <p>Role: ${arr[4].Role}</p>
+  </div>
+  <div class="details">
+    <p>ID: ${arr[1].id}</p>
+    <p>Email: ${arr[2].email}</p>
+    <p>${keyString}: ${value}</p>
+  </div>
+</div>
+`;
+  display.append(finalString);
+}
+
 async function start() {
   managerArray = await manager();
-  console.log(memberType.role);
+  buildHTML(managerArray);
   while (memberType.role === "Engineer" || memberType.role === "Intern") {
     memberType = await newMember();
     if (memberType.role === "Engineer") {
       engineerArray = [];
-      engineerArray = await newEngineer();
+      engineerArray = await newEngineer(engineerArray);
     } else if (memberType.role === "Intern") {
       internArray = [];
-      internArray = await newIntern();
+      internArray = await newIntern(internArray);
     } else {
       //
     }
